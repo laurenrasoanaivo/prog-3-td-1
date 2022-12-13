@@ -1,6 +1,7 @@
 package app.prog.service;
 
 import app.prog.model.BookEntity;
+import app.prog.repository.AuthorRepository;
 import app.prog.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,18 +13,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookService {
     private final BookRepository repository;
+    private final AuthorRepository authorRepository;
 
     public List<BookEntity> getBooks() {
         return repository.findAll();
     }
 
-    public List<BookEntity> createBooks(List<BookEntity> toCreate) {
-        return repository.saveAll(toCreate);
-    }
+    public List<BookEntity> createBooks(List<BookEntity> toCreate) { return repository.saveAll(toCreate); }
 
-    public List<BookEntity> updateBooks(List<BookEntity> toUpdate) {
-        return repository.saveAll(toUpdate);
-    }
+    public List<BookEntity> updateBooks(List<BookEntity> toUpdate) { return repository.saveAll(toUpdate); }
 
     //TODO-3: should I use Integer here or int ? Why ?
     public BookEntity deleteBook(Integer id) {

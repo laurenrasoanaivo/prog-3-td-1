@@ -6,6 +6,7 @@ import app.prog.model.AuthorEntity;
 import app.prog.model.BookEntity;
 import app.prog.service.AuthorService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,10 @@ public class AuthorController {
     private final AuthorRestMapper mapper;
 
     @GetMapping("/authors")
-    public List<AuthorResponse> getBooks() {
-        return service.getAuthors().stream()
+    public ResponseEntity<List<AuthorResponse>> getBooks() {
+        return ResponseEntity.ok(service.getAuthors().stream()
                 .map(mapper::toRest)
-                .toList();
+                .toList());
     }
 
     @PostMapping("/authors")

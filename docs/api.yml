@@ -85,6 +85,67 @@ paths:
                 $ref: '#/components/schemas/Book'
         '500':
           description: Internal server error
+  /categories:
+    get:
+      tags:
+        - Categories
+      summary: get all categories
+      operationId: getCategories
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Categories
+      summary: create new categories
+      operationId: createCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: List of created categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '500':
+          description: Internal server error
+  /categories/{categoryId}:
+    delete:
+      tags:
+        - Categories
+      summary: delete a specific category
+      operationId: deleteCategory
+      parameters:
+        - in: path
+          name: categoryId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Return the deleted category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '500':
+          description: Internal server error        
   /authors:
     get:
       tags:

@@ -4,7 +4,9 @@ import app.prog.exception.NotFoundException;
 import app.prog.model.AuthorEntity;
 import app.prog.repository.AuthorRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,13 @@ public class AuthorService {
         return repository.saveAll(toUpdate);
     }
 
+    public AuthorEntity getByName(String name){
+        Optional<AuthorEntity> optional = repository.findByName(name);
+        if(optional.isPresent())
+            return optional.get();
+        else throw new RuntimeException("Resource not found");
+    }
+
     public AuthorEntity deleteAuthor(int id) {
         Optional<AuthorEntity> optional = repository.findById(id);
         if (optional.isPresent()) {
@@ -40,7 +49,8 @@ public class AuthorService {
         Link 1 : https://www.baeldung.com/spring-response-entity
         Link 2 : https://www.baeldung.com/exception-handling-for-rest-with-spring
          */
-            throw new NotFoundException("AuthorEntity." + id + " not found");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "AuthorEntity." + id + " not found");
         }
     }
 }
